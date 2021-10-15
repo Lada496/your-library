@@ -1,10 +1,11 @@
 import BookItem from "./BookItem";
 
-const BookList = () => {
+const BookList = (props) => {
   return (
     <div>
-      <h1>BookList</h1>
-      <BookItem />
+      {props.results.map((item) => (
+        <BookItem item={item} key={item.id} />
+      ))}
     </div>
   );
 };
