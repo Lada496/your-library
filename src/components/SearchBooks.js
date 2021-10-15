@@ -1,5 +1,8 @@
-import { Fragment, useRef, useReducer } from "react";
+import { Fragment, useRef, useReducer, useEffect, useState } from "react";
+import useHttp from "../hooks/use-http";
 import BookList from "./BookList";
+import LoadingSpinner from "../UI/LoadingSpinner";
+
 import { getSearchBooks } from "../lib/api";
 
 const initialState = {
@@ -30,27 +33,39 @@ const searchReducer = (currntState, action) => {
 };
 
 const SearchBooks = () => {
+  const [init, setInit] = useState(true);
   const [searchState, dispatchSearch] = useReducer(searchReducer, initialState);
   const searchInputRef = useRef("");
+  const {
+    sendRequest: sendGetRequest,
+    status,
+    data: loadedBooksData,
+    error,
+  } = useHttp(getSearchBooks, true);
   const searchHandler = () => {
-    getSearchBooks(searchInputRef.current.value, searchState.startIndex).then(
-      (results) => {
-        dispatchSearch({
-          type: "INITIALIZE",
-          results: results.results,
-          totalItems: results.totalItems,
-        });
-      }
-    );
+    setInit(false);
+    sendGetRequest(searchInputRef.current.value);
   };
 
+  useEffect(() => {
+    if (loadedBooksData) {
+      dispatchSearch({
+        type: "INITIALIZE",
+        results: loadedBooksData.results,
+        totalItems: loadedBooksData.totalItems,
+      });
+    }
+  }, [loadedBooksData]);
   return (
     <Fragment>
       <input type="text" placeholder="search books" ref={searchInputRef} />
       <button type="submit" onClick={searchHandler}>
         search
       </button>
-      <BookList results={searchState.results} />
+      {status === "loading" && !init && <LoadingSpinner />}
+      {status === "completed" && !error && (
+        <BookList results={searchState.results} />
+      )}
     </Fragment>
   );
 };

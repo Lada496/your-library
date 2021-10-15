@@ -1,7 +1,7 @@
 import { Fragment, useState } from "react";
 import { Route, Switch } from "react-router-dom";
 import LaunchPage from "./pages/LaunchPage";
-import Layout from "./components/Layout/Layout";
+import Layout from "./Layout/Layout";
 import Home from "./pages/Home";
 import MyBooks from "./pages/MyBooks";
 

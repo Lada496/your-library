@@ -1,6 +1,6 @@
-export async function getSearchBooks(query, index) {
+export async function getSearchBooks(query) {
   const response = await fetch(
-    `https://www.googleapis.com/books/v1/volumes?q=${query}&startIndex=${index}&maxResults=40`
+    `https://www.googleapis.com/books/v1/volumes?q=${query}&startIndex=0&maxResults=40`
   );
   const data = await response.json();
   const items = data.items;
