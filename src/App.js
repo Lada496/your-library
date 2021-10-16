@@ -8,11 +8,13 @@ import MyBooks from "./pages/MyBooks";
 function App() {
   const [isStart, setStart] = useState(false);
   const startHandler = () => {
-    console.log("click");
     setStart(true);
   };
+  const endHandler = () => {
+    setStart(false);
+  };
   const content = (
-    <Layout>
+    <Layout onEnd={endHandler}>
       <Switch>
         <Route path="/" exact>
           <Home />
@@ -26,6 +28,7 @@ function App() {
 
   return (
     <Fragment>
+    
       {!isStart && <LaunchPage onStart={startHandler} />}
       {isStart && content}
     </Fragment>

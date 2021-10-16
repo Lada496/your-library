@@ -1,16 +1,13 @@
 import noImage from "../images/no-image.png";
+import classes from "./BookItem.module.css";
 
 const BookItem = (props) => {
   return (
-    <div>
-      <h1>{props.item.title}</h1>
-      <img
-        src={props.item.image ? props.item.image : noImage}
-        alt={props.item.title}
-      ></img>
-      {props.item.authors &&
-        props.item.authors.map((author) => <p key={author}>{author}</p>)}
-    </div>
+    <img
+      className={classes.image}
+      src={props.item.image ? props.item.image : noImage}
+      alt={props.item.title}
+    ></img>
   );
 };
 export default BookItem;

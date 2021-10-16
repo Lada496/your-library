@@ -1,15 +1,30 @@
 import { NavLink } from "react-router-dom";
-const MainNavigation = () => {
+import classes from "./MainNavigation.module.css";
+const MainNavigation = (props) => {
   return (
-    <header>
-      <div>Your Library</div>
-      <nav>
+    <header className={classes.header}>
+      <div className={classes.logo}>Your Library</div>
+      <nav className={classes.nav}>
         <ul>
           <li>
-            <NavLink to="/">Home</NavLink>
+            <NavLink to="/" exact activeClassName={classes.active}>
+              Home
+            </NavLink>
           </li>
           <li>
-            <NavLink to="/my-books">My Books</NavLink>
+            <NavLink to="/my-books" activeClassName={classes.active}>
+              My Books
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/logout"
+              exact
+              activeClassName={classes.active}
+              onClick={props.onEnd}
+            >
+              Logout
+            </NavLink>
           </li>
         </ul>
       </nav>

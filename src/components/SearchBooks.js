@@ -2,8 +2,10 @@ import { Fragment, useRef, useReducer, useEffect, useState } from "react";
 import useHttp from "../hooks/use-http";
 import BookList from "./BookList";
 import LoadingSpinner from "../UI/LoadingSpinner";
+import SearchIcon from "@mui/icons-material/Search";
 
 import { getSearchBooks } from "../lib/api";
+import classes from "./SearchBooks.module.css";
 
 const initialState = {
   results: [],
@@ -58,10 +60,12 @@ const SearchBooks = () => {
   }, [loadedBooksData]);
   return (
     <Fragment>
-      <input type="text" placeholder="search books" ref={searchInputRef} />
-      <button type="submit" onClick={searchHandler}>
-        search
-      </button>
+      <div className={classes.search}>
+        <input type="text" placeholder="search books" ref={searchInputRef} />
+        <button type="submit" onClick={searchHandler}>
+          <SearchIcon sx={{ fontSize: 35 }} />
+        </button>
+      </div>
       {status === "loading" && !init && <LoadingSpinner />}
       {status === "completed" && !error && (
         <BookList results={searchState.results} />
