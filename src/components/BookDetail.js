@@ -1,8 +1,10 @@
 import { Fragment, useContext } from "react";
-import { Route, useParams, useRouteMatch } from "react-router-dom";
+import { Link, Route, useRouteMatch } from "react-router-dom";
 import ItemContext from "../store/item-context";
 import noImage from "../images/no-image.png";
 import classes from "./BookDetail.module.css";
+import AddMyBooks from "./AddMyBooks";
+import BookmarkAddIcon from "@mui/icons-material/BookmarkAdd";
 
 const BookDetail = () => {
   const match = useRouteMatch();
@@ -32,8 +34,16 @@ const BookDetail = () => {
             alt={itemCtx.item.title}
           />
         </div>
+        <Link className={classes.link} to={`${match.url}/add-my-books`}>
+          <button className={classes.button}>
+            <span>Add to My Books</span>
+            <BookmarkAddIcon />
+          </button>
+        </Link>
       </Route>
-      <Route></Route>
+      <Route path={`${match.url}/add-my-books`}>
+        <AddMyBooks />
+      </Route>
     </Fragment>
   );
 };
