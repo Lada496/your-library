@@ -7,7 +7,7 @@ const MainNavigation = (props) => {
       <nav className={classes.nav}>
         <ul>
           <li>
-            <NavLink to="/login" exact activeClassName={classes.active}>
+            <NavLink to="/search-book" exact activeClassName={classes.active}>
               Home
             </NavLink>
           </li>

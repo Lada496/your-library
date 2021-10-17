@@ -14,7 +14,7 @@ function App() {
         </Route>
         <Layout>
           <Switch>
-            <Route path="/login" exact>
+            <Route path="/search-book">
               <Home />
             </Route>
             <Route path="/my-books">

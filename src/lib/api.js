@@ -14,6 +14,9 @@ export async function getSearchBooks(query) {
         image: item.volumeInfo.imageLinks.thumbnail,
       }),
       ...(item.volumeInfo.authors && { authors: item.volumeInfo.authors }),
+      ...(item.volumeInfo.description && {
+        description: item.volumeInfo.description,
+      }),
     });
   }
   return {

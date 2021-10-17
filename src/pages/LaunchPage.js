@@ -8,7 +8,7 @@ const LaunchPage = (props) => {
   return (
     <div className={classes.container} style={style}>
       <h1 className={classes.heading}>Your Library</h1>
-      <Link to="/login">
+      <Link to="/search-book">
         <button onClick={props.onStart} className={classes.button}>
           start
         </button>

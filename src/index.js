@@ -1,12 +1,15 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
-import "./index.css";
 import App from "./App";
+import { ItemContextProvider } from "./store/item-context";
+import "./index.css";
 
 ReactDOM.render(
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>,
+  <ItemContextProvider>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </ItemContextProvider>,
   document.getElementById("root")
 );
