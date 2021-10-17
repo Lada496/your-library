@@ -10,6 +10,8 @@ function httpReducer(state, action) {
   }
 
   if (action.type === "SUCCESS") {
+    console.log("send request");
+    console.log(action.responseData);
     return {
       data: action.responseData,
       error: null,
@@ -36,10 +38,10 @@ function useHttp(requestFunction, startWithPending = false) {
   });
 
   const sendRequest = useCallback(
-    async function (requestData) {
+    async function (requestData1, requestData2) {
       dispatch({ type: "SEND" });
       try {
-        const responseData = await requestFunction(requestData);
+        const responseData = await requestFunction(requestData1, requestData2);
         console.log(responseData);
         dispatch({ type: "SUCCESS", responseData });
       } catch (error) {

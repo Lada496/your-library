@@ -27,3 +27,8 @@
 .search button:hover {
   cursor: pointer;
 }
+
+.pagination {
+  width: fit-content;
+  margin: 2rem auto;
+}
