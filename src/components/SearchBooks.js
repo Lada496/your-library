@@ -8,7 +8,7 @@ import LoadingSpinner from "../UI/LoadingSpinner";
 import ErrorMessage from "../UI/ErrorMessage";
 import BookDetail from "./BookDetail";
 
-import { getSearchBooks, getPaginationBooks } from "../lib/api";
+import { getSearchBooks } from "../lib/api";
 import classes from "./SearchBooks.module.css";
 
 const initialState = {
@@ -19,16 +19,6 @@ const initialState = {
   page: 1,
 };
 const searchReducer = (currntState, action) => {
-  // if (action.type === "INITIALIZE") {
-  //   return {
-  //     results: action.results,
-  //     totalItems: action.totalItems,
-  //     query: action.query,
-  //     startIndex: 0,
-  //     page: 1,
-  //   };
-  // }
-
   if (action.type === "PAGINATION") {
     return {
       ...currntState,
@@ -68,39 +58,20 @@ const SearchBooks = () => {
     error,
   } = useHttp(getSearchBooks, true);
 
-  // const {
-  //   seadRequest: sendPaginationRequest,
-  //   paginationStaus,
-  //   data: loadedPaginationData,
-  //   paginationError,
-  // } = useHttp(getPaginationBooks, true);
-
   const searchHandler = () => {
     setInit(false);
     sendGetRequest(searchInputRef.current.value);
-    // setQuery(searchInputRef.current.value);
     dispatchSearch({
       type: "QUERY",
       query: searchInputRef.current.value,
     });
+    setPage(1);
     searchInputRef.current.value = "";
   };
 
   const pageChangeHandler = (event, newValue) => {
     setPage(newValue);
   };
-
-  // useEffect(() => {
-  //   if (loadedBooksData) {
-  //     console.log("initial run");
-  //     dispatchSearch({
-  //       type: "INITIALIZE",
-  //       query,
-  //       results: loadedBooksData.results,
-  //       totalItems: loadedBooksData.totalItems,
-  //     });
-  //   }
-  // }, [loadedBooksData, query]);
 
   useEffect(() => {
     if (!init) {
@@ -112,17 +83,6 @@ const SearchBooks = () => {
       });
     }
   }, [page, init]);
-
-  // const paginationChangeHandler = () => {
-  //   if (searchState.query && searchState.startIndex) {
-  //     sendPaginationRequest(searchState.query, searchState.startIndex);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   console.log("loadedBooksData");
-  //   console.log(loadedBooksData);
-  // }, [loadedBooksData]);
 
   useEffect(() => {
     if (searchState.query && !init) {
@@ -139,13 +99,9 @@ const SearchBooks = () => {
         results: loadedBooksData.results,
         totalItems: loadedBooksData.totalItems,
       });
-      setPage(1);
     }
   }, [loadedBooksData, init]);
 
-  // useEffect(() => {
-  //   setPage(searchState.page);
-  // }, [searchState.page]);
   return (
     <Fragment>
       <Route path={match.path} exact>
@@ -158,17 +114,17 @@ const SearchBooks = () => {
         {status === "loading" && !init && <LoadingSpinner />}
         {status === "completed" && error && <ErrorMessage />}
         {status === "completed" && !error && (
-          <BookList results={searchState.results} />
-        )}
-        {!init && (
-          <div className={classes.pagination}>
-            <Pagination
-              count={Math.ceil(searchState.totalItems / 20)}
-              page={page}
-              onChange={pageChangeHandler}
-              // onClick={paginationChangeHandler}
-            />
-          </div>
+          <Fragment>
+            <BookList results={searchState.results} />
+            <div className={classes.pagination}>
+              <Pagination
+                count={Math.ceil(searchState.totalItems / 20)}
+                page={page}
+                onChange={pageChangeHandler}
+                // onClick={paginationChangeHandler}
+              />
+            </div>
+          </Fragment>
         )}
       </Route>
       <Route path={`${match.path}/:bookId`}>

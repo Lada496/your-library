@@ -7,22 +7,11 @@ import BookmarkAddIcon from "@mui/icons-material/BookmarkAdd";
 import Rating from "@mui/material/Rating";
 import ItemContext from "../store/item-context";
 import classes from "./AddMyBooks.module.css";
-const formatDate = (date) => {
-  const month = "" + (date.getMonth() + 1),
-    day = "" + date.getDate(),
-    year = date.getFullYear();
-  if (month.length < 2) {
-    month = "0" + month;
-  }
-  if (day.length < 2) {
-    day = "0" + day;
-  }
-  return [year, month, day].join("-");
-};
+import MyBooks from "../pages/MyBooks";
+import { Redirect } from "react-router";
+
 const AddMyBooks = () => {
   const itemCtx = React.useContext(ItemContext);
-  const date = new Date();
-  const formatedDate = formatDate(date);
   const [rating, setRating] = React.useState(3);
   const [inputDate, setInputDate] = React.useState(new Date());
   const [comment, setComment] = React.useState("");
@@ -44,9 +33,19 @@ const AddMyBooks = () => {
       rating,
       title: itemCtx.item.title,
       authors: itemCtx.item.authors,
-      comment,
+      image: itemCtx.item.image,
+      comment: comment,
     };
-    console.log(mybook);
+    const myBooks = localStorage.getItem("myBooks");
+    if (myBooks) {
+      const newMyBooks = JSON.parse(MyBooks).push(mybook);
+      localStorage.setItem("myBooks", JSON.stringify(newMyBooks));
+    } else {
+      const newMyBooks = [];
+      newMyBooks.push(mybook);
+      localStorage.setItem("myBooks", JSON.stringify(newMyBooks));
+    }
+    return <Redirect to="/my-books" />;
   };
 
   return (
