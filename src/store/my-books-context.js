@@ -9,14 +9,15 @@ console.log(initilaMyBooks);
 
 const updateLocalStorage = (myBook) => {
   let prevMyBooks = localStorage.getItem("myBooks");
+  let myBooks = [];
   if (storedMyBooks) {
-    const myBooks = JSON.parse(prevMyBooks);
+    myBooks = JSON.parse(prevMyBooks);
     myBooks.push(myBook);
   } else {
-    const myBooks = [];
+    myBooks = [];
     myBooks.push(myBook);
   }
-  return myBook;
+  localStorage.setItem("myBooks", JSON.stringify(myBooks));
 };
 
 const MyBooksContext = createContext({

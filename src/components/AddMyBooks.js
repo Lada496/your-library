@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useHistory } from "react-router";
 import TextField from "@mui/material/TextField";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
@@ -9,7 +10,6 @@ import ItemContext from "../store/item-context";
 import MyBooksContext from "../store/my-books-context";
 import classes from "./AddMyBooks.module.css";
 import MyBooks from "../pages/MyBooks";
-import { Redirect } from "react-router";
 
 const formatDate = (date) => {
   let d = new Date(date),
@@ -24,6 +24,7 @@ const formatDate = (date) => {
 };
 
 const AddMyBooks = () => {
+  const history = useHistory();
   const itemCtx = React.useContext(ItemContext);
   const myBooksCtx = React.useContext(MyBooksContext);
   const [rating, setRating] = React.useState(3);
@@ -39,9 +40,6 @@ const AddMyBooks = () => {
     setComment(event.target.value);
   };
 
-  // console.log("formatdate");
-  // console.log(formattedDate);
-
   const submitHandler = (event) => {
     event.preventDefault();
     const formattedDate = formatDate(inputDate);
@@ -54,18 +52,9 @@ const AddMyBooks = () => {
       image: itemCtx.item.image,
       comment,
     };
-    // const myBooks = localStorage.getItem("myBooks");
-    // if (myBooks) {
-    //   const newMyBooks = JSON.parse(MyBooks).push(mybook);
-    //   localStorage.setItem("myBooks", JSON.stringify(newMyBooks));
-    // } else {
-    //   const newMyBooks = [];
-    //   newMyBooks.push(mybook);
-    //   localStorage.setItem("myBooks", JSON.stringify(newMyBooks));
-    // }
-    console.log("update");
-    console.log(mybook);
+
     myBooksCtx.updateMyBooks(mybook);
+    history.replace("/my-books");
   };
 
   return (
