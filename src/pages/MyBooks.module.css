@@ -1,9 +1,8 @@
-.list {
+.box {
   display: flex;
   flex-wrap: wrap;
-  gap: 3rem;
   justify-content: flex-start;
-  align-items: center;
+  gap: 2rem;
   margin: 3rem auto;
   width: 80%;
 }

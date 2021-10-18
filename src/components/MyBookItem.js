@@ -25,7 +25,6 @@ const ExpandMore = styled((props) => {
 }));
 
 const MyBookItem = (props) => {
-  console.log(props);
   const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
@@ -33,7 +32,7 @@ const MyBookItem = (props) => {
   };
 
   return (
-    <Card sx={{ width: 280 }}>
+    <Card sx={{ width: 300 }}>
       <CardHeader
         title={props.item.title}
         subheader={props.item.date.substring(0, 10)}
@@ -42,7 +41,7 @@ const MyBookItem = (props) => {
         className={classes.image}
         component="img"
         height="300"
-        // width="200"
+        // width="150"
         image={props.item.image ? props.item.image : noImage}
         alt={props.item.title}
       />

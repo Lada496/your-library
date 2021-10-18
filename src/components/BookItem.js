@@ -14,7 +14,11 @@ const BookItem = (props) => {
   };
   return (
     <Fragment>
-      <Link to={`${match.path}/${props.item.id}`} onClick={updateItemHandler}>
+      <Link
+        className={classes.box}
+        to={`${match.path}/${props.item.id}`}
+        onClick={updateItemHandler}
+      >
         <img
           className={classes.image}
           src={props.item.image ? props.item.image : noImage}
