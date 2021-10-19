@@ -32,10 +32,11 @@ const MyBookItem = (props) => {
   };
 
   return (
-    <Card sx={{ width: 300 }}>
+    <Card sx={{ width: 300, margin: "0 auto auto auto" }}>
       <CardHeader
         title={props.item.title}
         subheader={props.item.date.substring(0, 10)}
+        sx={{ minHeight: 100, alignItems: "start" }}
       />
       <CardMedia
         // className={classes.image}
@@ -80,6 +81,9 @@ const MyBookItem = (props) => {
           <Typography paragraph>
             {props.item.comment ? props.item.comment : "no comment"}
           </Typography>
+          <CardActions>
+            <button>Delete</button>
+          </CardActions>
         </CardContent>
       </Collapse>
     </Card>
