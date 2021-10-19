@@ -38,9 +38,10 @@ const MyBookItem = (props) => {
         subheader={props.item.date.substring(0, 10)}
       />
       <CardMedia
-        className={classes.image}
+        // className={classes.image}
         component="img"
         height="300"
+        sx={{ width: 200, margin: "auto" }}
         // width="150"
         image={props.item.image ? props.item.image : noImage}
         alt={props.item.title}

@@ -42,6 +42,15 @@ const searchReducer = (currntState, action) => {
       page: 1,
     };
   }
+
+  if (action.type === "PAGE") {
+    console.log(action.page);
+    return {
+      ...currntState,
+      page: action.page,
+      startIndex: (action.page - 1) * 20 - 1,
+    };
+  }
 };
 
 const SearchBooks = () => {
@@ -70,19 +79,19 @@ const SearchBooks = () => {
   };
 
   const pageChangeHandler = (event, newValue) => {
-    setPage(newValue);
+    dispatchSearch({ type: "PAGE", page: newValue });
   };
 
-  useEffect(() => {
-    if (!init) {
-      console.log("pagination run");
-      dispatchSearch({
-        type: "PAGINATION",
-        page: page,
-        startIndex: (page - 1) * 20 - 1,
-      });
-    }
-  }, [page, init]);
+  // useEffect(() => {
+  //   if (!init) {
+  //     console.log("pagination run");
+  //     dispatchSearch({
+  //       type: "PAGINATION",
+  //       page: page,
+  //       startIndex: (page - 1) * 20 - 1,
+  //     });
+  //   }
+  // }, [page, init]);
 
   useEffect(() => {
     if (searchState.query && !init) {
@@ -119,7 +128,7 @@ const SearchBooks = () => {
             <div className={classes.pagination}>
               <Pagination
                 count={Math.ceil(searchState.totalItems / 20)}
-                page={page}
+                page={searchState.page}
                 onChange={pageChangeHandler}
                 // onClick={paginationChangeHandler}
               />
