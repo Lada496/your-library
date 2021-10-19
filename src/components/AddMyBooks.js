@@ -9,7 +9,6 @@ import Rating from "@mui/material/Rating";
 import ItemContext from "../store/item-context";
 import MyBooksContext from "../store/my-books-context";
 import classes from "./AddMyBooks.module.css";
-import MyBooks from "../pages/MyBooks";
 
 const formatDate = (date) => {
   let d = new Date(date),

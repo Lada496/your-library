@@ -44,7 +44,6 @@ const searchReducer = (currntState, action) => {
   }
 
   if (action.type === "PAGE") {
-    console.log(action.page);
     return {
       ...currntState,
       page: action.page,
@@ -55,9 +54,7 @@ const searchReducer = (currntState, action) => {
 
 const SearchBooks = () => {
   const match = useRouteMatch();
-  // const [query, setQuery] = useState("");
   const [init, setInit] = useState(true);
-  const [page, setPage] = useState(1);
   const [searchState, dispatchSearch] = useReducer(searchReducer, initialState);
   const searchInputRef = useRef("");
   const {
@@ -74,7 +71,6 @@ const SearchBooks = () => {
       type: "QUERY",
       query: searchInputRef.current.value,
     });
-    setPage(1);
     searchInputRef.current.value = "";
   };
 
@@ -82,27 +78,14 @@ const SearchBooks = () => {
     dispatchSearch({ type: "PAGE", page: newValue });
   };
 
-  // useEffect(() => {
-  //   if (!init) {
-  //     console.log("pagination run");
-  //     dispatchSearch({
-  //       type: "PAGINATION",
-  //       page: page,
-  //       startIndex: (page - 1) * 20 - 1,
-  //     });
-  //   }
-  // }, [page, init]);
-
   useEffect(() => {
     if (searchState.query && !init) {
-      console.log("pagination request run");
       sendGetRequest(searchState.query, searchState.startIndex);
     }
   }, [searchState.query, searchState.startIndex, sendGetRequest, init]);
 
   useEffect(() => {
     if (loadedBooksData && !init) {
-      console.log("pagination update run");
       dispatchSearch({
         type: "UPDATE",
         results: loadedBooksData.results,

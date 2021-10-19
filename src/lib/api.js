@@ -7,7 +7,6 @@ export async function getSearchBooks(query, startIndex = 0) {
   const data = await response.json();
   const items = data.items;
   const results = [];
-  console.log(data);
   for (const item of items) {
     results.push({
       id: item.id,

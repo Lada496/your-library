@@ -8,7 +8,6 @@ import BookmarkAddIcon from "@mui/icons-material/BookmarkAdd";
 
 const BookDetail = () => {
   const match = useRouteMatch();
-  console.log(match);
   const itemCtx = useContext(ItemContext);
   return (
     <Fragment>
