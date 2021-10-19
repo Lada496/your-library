@@ -10,8 +10,10 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Rating from "@mui/material/Rating";
+import DeleteIcon from "@mui/icons-material/Delete";
 import noImage from "../images/no-image.png";
 import classes from "./MyBookItem.module.css";
+import MyBooksContext from "../store/my-books-context";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -26,9 +28,20 @@ const ExpandMore = styled((props) => {
 
 const MyBookItem = (props) => {
   const [expanded, setExpanded] = React.useState(false);
+  const myBooksCtx = React.useContext(MyBooksContext);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
+  };
+
+  const deleteMyBookHandler = () => {
+    if (window.confirm("Do you want to delete this book?")) {
+      const currentMyBooks = myBooksCtx.myBooks;
+      const newMyBooks = currentMyBooks.filter(
+        (myBook) => myBook.id !== props.item.id
+      );
+      myBooksCtx.deleteMyBook(newMyBooks);
+    }
   };
 
   return (
@@ -47,13 +60,16 @@ const MyBookItem = (props) => {
         image={props.item.image ? props.item.image : noImage}
         alt={props.item.title}
       />
-      <CardContent>
+      <CardContent
+        sx={{
+          minHeight: 50,
+          textAlign: "start",
+        }}
+      >
         {props.item.authors ? (
-          props.item.authors.map((author) => {
-            <Typography variant="body2" color="text.secondary">
-              {author}
-            </Typography>;
-          })
+          <Typography variant="body2" color="text.secondary">
+            {props.item.authors.join(", ")}
+          </Typography>
         ) : (
           <Typography variant="body2" color="text.secondary">
             anonymous
@@ -82,7 +98,10 @@ const MyBookItem = (props) => {
             {props.item.comment ? props.item.comment : "no comment"}
           </Typography>
           <CardActions>
-            <button>Delete</button>
+            <button onClick={deleteMyBookHandler} className={classes.button}>
+              <span>Delete</span>
+              <DeleteIcon fontSize="small" />
+            </button>
           </CardActions>
         </CardContent>
       </Collapse>

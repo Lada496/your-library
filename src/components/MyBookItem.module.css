@@ -1,4 +1,18 @@
-.image {
+.button {
+  font-family: "Roboto", sans-serif;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  height: 2rem;
+  width: fit-content;
+  border: none;
+  border-radius: 3px;
+  color: #ff2442;
+  background-color: transparent;
   margin: auto;
-  width: 200px;
+}
+
+.button:hover {
+  border: none;
+  cursor: pointer;
 }

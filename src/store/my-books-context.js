@@ -23,6 +23,7 @@ const updateLocalStorage = (myBook) => {
 const MyBooksContext = createContext({
   myBooks: initilaMyBooks,
   updateMyBooks: (myBook) => {},
+  deleteMyBook: (myBooks) => {},
 });
 
 export const MyBooksContextProvider = (props) => {
@@ -33,6 +34,11 @@ export const MyBooksContextProvider = (props) => {
     updateLocalStorage(myBook);
   };
 
+  const deleteMyBookHandler = (myBooks) => {
+    setMyBooks(myBooks);
+    localStorage.setItem("myBooks", JSON.stringify(myBooks));
+  };
+
   //   useEffect(() => {
   //     localStorage.setItem("myBooks", JSON.stringify(myBooks));
   //   }, [myBooks]);
@@ -40,6 +46,7 @@ export const MyBooksContextProvider = (props) => {
   const context = {
     myBooks,
     updateMyBooks: updateMyBooksHandler,
+    deleteMyBook: deleteMyBookHandler,
   };
   return (
     <MyBooksContext.Provider value={context}>

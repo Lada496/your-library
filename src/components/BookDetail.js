@@ -18,7 +18,7 @@ const BookDetail = () => {
             <h1>Title: {itemCtx.item.title}</h1>
             <h2>Author(s): </h2>
             {itemCtx.item.authors ? (
-              itemCtx.item.authors.map((autor) => <p key={autor}>{autor}</p>)
+              <p>{itemCtx.item.authors.join(", ")}</p>
             ) : (
               <p>anonymos</p>
             )}
