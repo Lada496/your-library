@@ -9,7 +9,13 @@ const MyBooks = React.lazy(() => import("./pages/MyBooks"));
 function App() {
   return (
     <Fragment>
-      <Suspense fallback={<LoadingSpinner />}>
+      <Suspense
+        fallback={
+          <div className="centered">
+            <LoadingSpinner />
+          </div>
+        }
+      >
         <Switch>
           <Route path="/" exact>
             <LaunchPage />
