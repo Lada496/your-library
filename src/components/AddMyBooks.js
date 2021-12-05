@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useHistory } from "react-router";
+import { useNavigate } from "react-router";
 import TextField from "@mui/material/TextField";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
@@ -23,7 +23,7 @@ const formatDate = (date) => {
 };
 
 const AddMyBooks = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const itemCtx = React.useContext(ItemContext);
   const myBooksCtx = React.useContext(MyBooksContext);
   const [rating, setRating] = React.useState(3);
@@ -53,7 +53,7 @@ const AddMyBooks = () => {
     };
 
     myBooksCtx.updateMyBooks(mybook);
-    history.replace("/my-books");
+    navigate("/my-books");
   };
 
   return (
