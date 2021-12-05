@@ -3,6 +3,7 @@ import MyBookItem from "../components/MyBookItem";
 import SortMyBooks from "../components/SortMyBooks";
 import MyBooksContext from "../store/my-books-context";
 import classes from "./MyBooks.module.css";
+import WithLayout from "../hoc/WithLayout";
 
 const sortByTitle = (myBooks) => {
   myBooks.sort((a, b) => {
@@ -73,4 +74,4 @@ const MyBooks = () => {
     </Fragment>
   );
 };
-export default MyBooks;
+export default WithLayout(MyBooks);

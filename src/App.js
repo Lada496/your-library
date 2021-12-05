@@ -1,7 +1,6 @@
 import React, { Fragment, Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
 import LaunchPage from "./pages/LaunchPage";
-import Layout from "./Layout/Layout";
 import Home from "./pages/Home";
 import LoadingSpinner from "./UI/LoadingSpinner";
 import NotFound from "./pages/NotFound";
@@ -19,30 +18,9 @@ function App() {
       >
         <Routes>
           <Route path="/" element={<LaunchPage />} />
-          <Route
-            path="search-book/*"
-            element={
-              <Layout>
-                <Home />
-              </Layout>
-            }
-          />
-          <Route
-            path="my-books"
-            element={
-              <Layout>
-                <MyBooks />
-              </Layout>
-            }
-          />
-          <Route
-            path="*"
-            element={
-              <Layout>
-                <NotFound />
-              </Layout>
-            }
-          />
+          <Route path="search-book/*" element={<Home />} />
+          <Route path="my-books" element={<MyBooks />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>
     </Fragment>
