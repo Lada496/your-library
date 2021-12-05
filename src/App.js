@@ -4,6 +4,7 @@ import LaunchPage from "./pages/LaunchPage";
 import Layout from "./Layout/Layout";
 import Home from "./pages/Home";
 import LoadingSpinner from "./UI/LoadingSpinner";
+import NotFound from "./pages/NotFound";
 const MyBooks = React.lazy(() => import("./pages/MyBooks"));
 
 function App() {
@@ -31,6 +32,14 @@ function App() {
             element={
               <Layout>
                 <MyBooks />
+              </Layout>
+            }
+          />
+          <Route
+            path="*"
+            element={
+              <Layout>
+                <NotFound />
               </Layout>
             }
           />
