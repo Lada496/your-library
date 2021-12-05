@@ -1,10 +1,7 @@
 import SearchBooks from "../components/SearchBooks";
+import WithLayout from "../hoc/WithLayout";
 
 const Home = () => {
-  return (
-    <div>
-      <SearchBooks />
-    </div>
-  );
+  return <SearchBooks />;
 };
-export default Home;
+export default WithLayout(Home);
