@@ -1,5 +1,5 @@
 import { Fragment, useRef, useReducer, useEffect, useState } from "react";
-import { Route, useRouteMatch } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import SearchIcon from "@mui/icons-material/Search";
 import Pagination from "@mui/material/Pagination";
 import useHttp from "../hooks/use-http";
@@ -53,7 +53,16 @@ const searchReducer = (currntState, action) => {
 };
 
 const SearchBooks = () => {
-  const match = useRouteMatch();
+  return (
+    <Routes>
+      <Route path="" element={<SearchBooksComponents />} />
+      <Route path=":bookId/*" element={<BookDetail />} />
+    </Routes>
+  );
+};
+export default SearchBooks;
+
+const SearchBooksComponents = () => {
   const [init, setInit] = useState(true);
   const [searchState, dispatchSearch] = useReducer(searchReducer, initialState);
   const searchInputRef = useRef("");
@@ -93,36 +102,28 @@ const SearchBooks = () => {
       });
     }
   }, [loadedBooksData, init]);
-
   return (
     <Fragment>
-      <Route path={match.path} exact>
-        <div className={classes.search}>
-          <input type="text" placeholder="search books" ref={searchInputRef} />
-          <button type="submit" onClick={searchHandler}>
-            <SearchIcon sx={{ fontSize: 35 }} />
-          </button>
-        </div>
-        {status === "loading" && !init && <LoadingSpinner />}
-        {status === "completed" && error && <ErrorMessage />}
-        {status === "completed" && !error && (
-          <Fragment>
-            <BookList results={searchState.results} />
-            <div className={classes.pagination}>
-              <Pagination
-                count={Math.ceil(searchState.totalItems / 20)}
-                page={searchState.page}
-                onChange={pageChangeHandler}
-                // onClick={paginationChangeHandler}
-              />
-            </div>
-          </Fragment>
-        )}
-      </Route>
-      <Route path={`${match.path}/:bookId`}>
-        <BookDetail />
-      </Route>
+      <div className={classes.search}>
+        <input type="text" placeholder="search books" ref={searchInputRef} />
+        <button type="submit" onClick={searchHandler}>
+          <SearchIcon sx={{ fontSize: 35 }} />
+        </button>
+      </div>
+      {status === "loading" && !init && <LoadingSpinner />}
+      {status === "completed" && error && <ErrorMessage />}
+      {status === "completed" && !error && (
+        <Fragment>
+          <BookList results={searchState.results} />
+          <div className={classes.pagination}>
+            <Pagination
+              count={Math.ceil(searchState.totalItems / 20)}
+              page={searchState.page}
+              onChange={pageChangeHandler}
+            />
+          </div>
+        </Fragment>
+      )}
     </Fragment>
   );
 };
-export default SearchBooks;

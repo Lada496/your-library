@@ -1,5 +1,5 @@
 import React, { Fragment, Suspense } from "react";
-import { Route, Switch } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import LaunchPage from "./pages/LaunchPage";
 import Layout from "./Layout/Layout";
 import Home from "./pages/Home";
@@ -16,21 +16,25 @@ function App() {
           </div>
         }
       >
-        <Switch>
-          <Route path="/" exact>
-            <LaunchPage />
-          </Route>
-          <Layout>
-            <Switch>
-              <Route path="/search-book">
+        <Routes>
+          <Route path="/" element={<LaunchPage />} />
+          <Route
+            path="search-book/*"
+            element={
+              <Layout>
                 <Home />
-              </Route>
-              <Route path="/my-books">
+              </Layout>
+            }
+          />
+          <Route
+            path="my-books"
+            element={
+              <Layout>
                 <MyBooks />
-              </Route>
-            </Switch>
-          </Layout>
-        </Switch>
+              </Layout>
+            }
+          />
+        </Routes>
       </Suspense>
     </Fragment>
   );

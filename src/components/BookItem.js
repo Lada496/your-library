@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-import { Link, useRouteMatch } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import noImage from "../images/no-image.png";
 
 import { useContext } from "react";
@@ -8,7 +8,7 @@ import classes from "./BookItem.module.css";
 
 const BookItem = (props) => {
   const itemCtx = useContext(ItemContext);
-  const match = useRouteMatch();
+  const location = useLocation();
   const updateItemHandler = () => {
     itemCtx.updateItem(props.item);
   };
@@ -16,7 +16,7 @@ const BookItem = (props) => {
     <Fragment>
       <Link
         className={classes.box}
-        to={`${match.path}/${props.item.id}`}
+        to={`${location.pathname}/${props.item.id}`}
         onClick={updateItemHandler}
       >
         <img
