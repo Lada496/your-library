@@ -1,7 +1,7 @@
 import { Fragment, useContext } from "react";
 import MyBookItem from "../components/MyBookItem";
 import SortMyBooks from "../components/SortMyBooks";
-import MyBooksContext from "../store/my-books-context";
+import RootContext from "../store/root-context";
 import classes from "./MyBooks.module.css";
 import WithLayout from "../hoc/WithLayout";
 
@@ -32,7 +32,9 @@ const sortByRating = (myBooks) => {
 };
 
 const MyBooks = () => {
-  const myBooksCtx = useContext(MyBooksContext);
+
+  const rootCxt = useContext(RootContext);
+  const myBooksCtx = rootCxt.myBooks;
 
   const content = myBooksCtx.myBooks.map((item) => (
     <MyBookItem key={item.id} item={item} />

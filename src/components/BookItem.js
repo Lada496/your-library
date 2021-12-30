@@ -3,11 +3,12 @@ import { Link, useLocation } from "react-router-dom";
 import noImage from "../images/no-image.png";
 
 import { useContext } from "react";
-import ItemContext from "../store/item-context";
+import RootContext from "../store/root-context";
 import classes from "./BookItem.module.css";
 
 const BookItem = (props) => {
-  const itemCtx = useContext(ItemContext);
+  const rootCtx = useContext(RootContext);
+  const itemCtx = rootCtx.item;
   const location = useLocation();
   const updateItemHandler = () => {
     itemCtx.updateItem(props.item);
