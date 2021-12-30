@@ -6,8 +6,7 @@ import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import DatePicker from "@mui/lab/DatePicker";
 import BookmarkAddIcon from "@mui/icons-material/BookmarkAdd";
 import Rating from "@mui/material/Rating";
-import ItemContext from "../store/item-context";
-import MyBooksContext from "../store/my-books-context";
+import RootContext from "../store/root-context";
 import classes from "./AddMyBooks.module.css";
 
 const formatDate = (date) => {
@@ -24,8 +23,9 @@ const formatDate = (date) => {
 
 const AddMyBooks = () => {
   const navigate = useNavigate();
-  const itemCtx = React.useContext(ItemContext);
-  const myBooksCtx = React.useContext(MyBooksContext);
+  const rootCtx = React.useContext(RootContext);
+  const itemCtx = rootCtx.item;
+  const myBooksCtx = rootCtx.myBooks;
   const [rating, setRating] = React.useState(3);
   const [inputDate, setInputDate] = React.useState(new Date());
   const [comment, setComment] = React.useState("");

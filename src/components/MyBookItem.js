@@ -13,7 +13,7 @@ import Rating from "@mui/material/Rating";
 import DeleteIcon from "@mui/icons-material/Delete";
 import noImage from "../images/no-image.png";
 import classes from "./MyBookItem.module.css";
-import MyBooksContext from "../store/my-books-context";
+import RootContext from "../store/root-context";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -28,7 +28,8 @@ const ExpandMore = styled((props) => {
 
 const MyBookItem = (props) => {
   const [expanded, setExpanded] = React.useState(false);
-  const myBooksCtx = React.useContext(MyBooksContext);
+  const rootCtx = React.useContext(RootContext);
+  const myBooksCtx = rootCtx.myBooks;
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -52,11 +53,9 @@ const MyBookItem = (props) => {
         sx={{ minHeight: 100, alignItems: "start" }}
       />
       <CardMedia
-        // className={classes.image}
         component="img"
         height="300"
         sx={{ width: 200, margin: "auto" }}
-        // width="150"
         image={props.item.image ? props.item.image : noImage}
         alt={props.item.title}
       />

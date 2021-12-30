@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { useState, createContext } from "react";
 
 let initilaMyBooks = [];
 const storedMyBooks = localStorage.getItem("myBooks");
@@ -19,16 +19,37 @@ const updateLocalStorage = (myBook) => {
   localStorage.setItem("myBooks", JSON.stringify(myBooks));
 };
 
-const MyBooksContext = createContext({
+const item = {
+  item: {},
+  updateItem: (item) => {},
+};
+
+const myBooks = {
   myBooks: initilaMyBooks,
   updateMyBooks: (myBook) => {},
   deleteMyBook: (myBooks) => {},
   sortMyBooks: (myBooks) => {},
   defaultMyBooks: () => {},
+};
+
+const RootContext = createContext({
+  item,
+  myBooks,
 });
 
-export const MyBooksContextProvider = (props) => {
+export const RootContextProvider = (props) => {
+  const [item, setItem] = useState({});
   const [myBooks, setMyBooks] = useState(initilaMyBooks);
+  const updateItemHandler = (item) => {
+    setItem({
+      id: item.id,
+      title: item.title,
+      authors: item.authors,
+      image: item.image,
+      description: item.description,
+    });
+  };
+
   const updateMyBooksHandler = (myBook) => {
     setMyBooks((pervValue) => [...pervValue, myBook]);
     updateLocalStorage(myBook);
@@ -52,18 +73,27 @@ export const MyBooksContextProvider = (props) => {
     setMyBooks(myBooks);
   };
 
-  const context = {
+  const itemContext = {
+    item,
+    updateItem: updateItemHandler,
+  };
+  const myBooksContext = {
     myBooks,
     updateMyBooks: updateMyBooksHandler,
     deleteMyBook: deleteMyBookHandler,
     sortMyBooks: sortMyBooksHandler,
     defaultMyBooks: defaultMyBooksHandler,
   };
+
+  const rootContext = {
+    item: itemContext,
+    myBooks: myBooksContext,
+  };
   return (
-    <MyBooksContext.Provider value={context}>
+    <RootContext.Provider value={rootContext}>
       {props.children}
-    </MyBooksContext.Provider>
+    </RootContext.Provider>
   );
 };
 
-export default MyBooksContext;
+export default RootContext;

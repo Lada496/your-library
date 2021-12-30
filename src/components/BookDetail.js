@@ -1,6 +1,6 @@
 import { Fragment, useContext } from "react";
 import { Routes, Link, Route, useLocation } from "react-router-dom";
-import ItemContext from "../store/item-context";
+import RootContext from "../store/root-context";
 import noImage from "../images/no-image.png";
 import classes from "./BookDetail.module.css";
 import AddMyBooks from "./AddMyBooks";
@@ -23,7 +23,8 @@ const BookDetail = () => {
 export default BookDetail;
 
 const BookDetailComponent = ({ path }) => {
-  const itemCtx = useContext(ItemContext);
+  const rootCtx = useContext(RootContext);
+  const itemCtx = rootCtx.item;
   return (
     <Fragment>
       <div className={classes.detail}>
