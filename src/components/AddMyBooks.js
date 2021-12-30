@@ -38,22 +38,29 @@ const AddMyBooks = () => {
   const commentChangeHandler = (event) => {
     setComment(event.target.value);
   };
+  const isBookInMyBooks = myBooksCtx.myBooks.some(
+    (myBook) => myBook.id.slice(13) === itemCtx.item.id
+  );
 
   const submitHandler = (event) => {
     event.preventDefault();
-    const formattedDate = formatDate(inputDate);
-    const mybook = {
-      id: "" + inputDate.getTime() + itemCtx.item.id,
-      date: formattedDate,
-      rating,
-      title: itemCtx.item.title,
-      authors: itemCtx.item.authors,
-      image: itemCtx.item.image,
-      comment,
-    };
+    if (isBookInMyBooks) {
+      alert("This book has already been in your list!");
+    } else {
+      const formattedDate = formatDate(inputDate);
+      const mybook = {
+        id: "" + inputDate.getTime() + itemCtx.item.id,
+        date: formattedDate,
+        rating,
+        title: itemCtx.item.title,
+        authors: itemCtx.item.authors,
+        image: itemCtx.item.image,
+        comment,
+      };
 
-    myBooksCtx.updateMyBooks(mybook);
-    navigate("/my-books");
+      myBooksCtx.updateMyBooks(mybook);
+      navigate("/my-books");
+    }
   };
 
   return (
