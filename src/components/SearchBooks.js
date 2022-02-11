@@ -19,13 +19,6 @@ const initialState = {
   page: 1,
 };
 const searchReducer = (currntState, action) => {
-  if (action.type === "PAGINATION") {
-    return {
-      ...currntState,
-      startIndex: action.startIndex,
-      page: action.page,
-    };
-  }
   if (action.type === "UPDATE") {
     return {
       ...currntState,
@@ -43,7 +36,7 @@ const searchReducer = (currntState, action) => {
     };
   }
 
-  if (action.type === "PAGE") {
+  if (action.type === "PAGINATION") {
     return {
       ...currntState,
       page: action.page,
@@ -84,7 +77,7 @@ const SearchBooksComponents = () => {
   };
 
   const pageChangeHandler = (event, newValue) => {
-    dispatchSearch({ type: "PAGE", page: newValue });
+    dispatchSearch({ type: "PAGINATION", page: newValue });
   };
 
   useEffect(() => {
